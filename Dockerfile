@@ -1,14 +1,12 @@
 FROM georgestagg/webr-flang
 
+RUN bash <(curl -sL https://deb.nodesource.com/setup_18.x) &&\
+  apt install nodejs &&\
+  echo "Running nodejs $(node --version)"
+
 RUN git clone https://github.com/r-wasm/webr
 
-WORKDIR webr 
-
-RUN curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh &&\
-  bash nodesource_setup.sh &&\
-  apt install nodejs
-
-RUN echo "BASE_URL=https://webr.r-wasm.org/v0.1.2/" > "$HOME/.webr-config.mk"
+WORKDIR webr
 
 RUN ./configure
 
