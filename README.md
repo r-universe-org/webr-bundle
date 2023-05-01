@@ -6,5 +6,7 @@ Custom build of [webr](https://github.com/r-wasm/webr) used in r-universe. Publi
 
 This bundle contains the following packages preinstalled:
 
- - jsonlite
- - writexl
+ - jsonlite (json export)
+ - writexl (xlsx export)
+ - data.table (csv export)
+
