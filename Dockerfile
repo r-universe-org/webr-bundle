@@ -5,7 +5,7 @@ RUN bash <(curl -sL https://deb.nodesource.com/setup_18.x) &&\
   apt install nodejs &&\
   echo "Running nodejs $(node --version)"
 
-RUN git clone https://github.com/r-wasm/webr
+RUN git clone https://github.com/r-wasm/webr -b msgpack
 
 WORKDIR webr
 
