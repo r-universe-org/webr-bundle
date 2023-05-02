@@ -9,4 +9,5 @@ This bundle contains the following packages preinstalled:
  - jsonlite (json export)
  - writexl (xlsx export)
  - data.table (csv export)
+ - zip
 
