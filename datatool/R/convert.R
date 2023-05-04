@@ -13,6 +13,7 @@ convert <- function(input, name, format, output){
   tmp_env <- new.env(parent = emptyenv())
   load_data(input, name, tmp_env)
   save_data(name, tmp_env, format, output)
+  rm(tmp_env)
 }
 
 load_data <- function(filename, name, env){
@@ -49,9 +50,10 @@ save_data <- function(name, env, format, output){
 
 # Functions copied from utils::data
 my_read_table <- function(...) {
-  lcc <- Sys.getlocale("LC_COLLATE")
-  on.exit(Sys.setlocale("LC_COLLATE", lcc))
-  Sys.setlocale("LC_COLLATE", "C")
+  # Jeroen: This seems always 'C' for webr
+  #lcc <- Sys.getlocale("LC_COLLATE")
+  #on.exit(Sys.setlocale("LC_COLLATE", lcc))
+  #Sys.setlocale("LC_COLLATE", "C")
   utils::read.table(...)
 }
 
