@@ -10,13 +10,13 @@
 #' @param format what format to export to
 #' @param output filename to write output to
 convert <- function(input, name, format, output){
-  tmp_env <- new.env(parent = emptyenv())
-  load_data(input, name, tmp_env)
-  save_data(name, tmp_env, format, output)
-  rm(tmp_env)
+  env <- load_data_env(input, name)
+  save_data(name, env, format, output)
+  rm(env)
 }
 
-load_data <- function(filename, name, env){
+load_data_env <- function(filename, name){
+  env <- new.env(parent = emptyenv())
   ext <- tolower(fileExt(filename))
   switch(ext,
          rdb =,
@@ -28,12 +28,12 @@ load_data <- function(filename, name, env){
          csv = , csv.gz = , csv.bz2 = ,
          csv.xz = assign(name, my_read_table(filename, header = TRUE, sep = ";", as.is = FALSE), envir = env),
          stop("Unsupported data type: ", filename))
+  env
 }
 
 
 save_data <- function(name, env, format, output){
   df <- get(name, env)
-  stopifnot(is.data.frame(df))
   format <- match.arg(tolower(format), c('csv', 'csv.gz', 'xlsx', 'json', 'ndjson', 'rda', 'rds'))
   switch(format,
          csv = data.table::fwrite(df, output),
