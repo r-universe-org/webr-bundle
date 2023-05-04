@@ -1,0 +1,16 @@
+Package: datatool
+Type: Package
+Title: Convert package datasets to various formats
+Version: 1.0
+Authors@R:
+    person("Jeroen", "Ooms", role = c("aut", "cre"), email = "jeroen@berkeley.edu",
+      comment = c(ORCID = "0000-0002-4035-0289"))
+Description: Support tool for r-universe to extract datasets from packages and
+    save this into some commmon formats.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Imports:
+    jsonlite,
+    writexl,
+    data.table
+RoxygenNote: 7.2.3
