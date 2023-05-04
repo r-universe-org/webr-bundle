@@ -9,7 +9,7 @@ RUN git clone https://github.com/r-wasm/webr
 
 WORKDIR webr
 
-COPY datatool /packages/datatool
+COPY datatool /datatool
 
 # Update npm metadata
 RUN sed -i.bak 's/@r-wasm/@r-universe/g' src/package.json &&\
@@ -26,6 +26,7 @@ RUN git clone --depth 1 https://github.com/cran/jsonlite packages/jsonlite &&\
     git clone --depth 1 https://github.com/ropensci/writexl packages/writexl &&\
     git clone --depth 1 https://github.com/cran/data.table packages/data.table &&\
     git clone --depth 1 https://github.com/cran/zip packages/zip && \
+    cp -Rf /datatool packages/datatool && \
     sed -i.bak 's/PKGS = webr/PKGS = webr jsonlite writexl data.table zip datatool/' packages/Makefile
 
 RUN PATH="/opt/emsdk:/opt/emsdk/upstream/emscripten:$PATH" EMSDK=/opt/emsdk make
