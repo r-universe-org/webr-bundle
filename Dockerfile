@@ -25,7 +25,7 @@ RUN cp -r /opt/flang/wasm .; cp -r /opt/flang/host .;cp /opt/flang/emfc ./host/b
 RUN git clone --depth 1 https://github.com/cran/jsonlite packages/jsonlite &&\
     git clone --depth 1 https://github.com/ropensci/writexl packages/writexl &&\
     git clone --depth 1 https://github.com/cran/data.table packages/data.table &&\
-    git clone --depth 1 https://github.com/r-lib/zip && \
-    sed -i.bak 's/PKGS = webr/PKGS = webr jsonlite writexl data.table zip datatool/' packages/Makefile
+    git clone --depth 1 https://github.com/cran/zip && \
+    sed -i.bak 's/PKGS = webr/PKGS = webr jsonlite writexl data.table datatool/' packages/Makefile
 
 RUN PATH="/opt/emsdk:/opt/emsdk/upstream/emscripten:$PATH" EMSDK=/opt/emsdk make
