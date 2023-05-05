@@ -19,14 +19,14 @@ load_data_env <- function(filename, name){
   env <- new.env(parent = emptyenv())
   ext <- tolower(fileExt(filename))
   switch(ext,
-         rdb =,
-         rdx = lazyLoad(sub('\\.rd.', '', filename), envir=env, filter=function(x) x==name),
-         rdata = ,
-         rda = load(filename, envir = env),
-         txt = , tab = , tab.gz = , tab.bz2 = , tab.xz = , txt.gz = , txt.bz2 = ,
-         txt.xz = assign(name, my_read_table(filename, header = TRUE, as.is = FALSE), envir = env),
-         csv = , csv.gz = , csv.bz2 = ,
-         csv.xz = assign(name, my_read_table(filename, header = TRUE, sep = ";", as.is = FALSE), envir = env),
+         rdb =, rdx =
+           lazyLoad(sub('\\.rd.', '', filename), envir=env, filter=function(x) x==name),
+         rdata = , rda =
+           load(filename, envir = env),
+         txt = , tab = , tab.gz = , tab.bz2 = , tab.xz = , txt.gz = , txt.bz2 = , txt.xz =
+           assign(name, my_read_table(filename, header = TRUE, as.is = FALSE), envir = env),
+         csv = , csv.gz = , csv.bz2 = , csv.xz =
+           assign(name, my_read_table(filename, header = TRUE, sep = ";", as.is = FALSE), envir = env),
          stop("Unsupported data type: ", filename))
   env
 }
