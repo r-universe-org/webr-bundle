@@ -1,7 +1,8 @@
 FROM georgestagg/webr-flang
 
 # Install latest nodejs
-RUN bash <(curl -sL https://deb.nodesource.com/setup_18.x) &&\
+RUN curl -L https://deb.nodesource.com/setup_18.x -o setup &&\
+  bash setup && \
   apt install nodejs &&\
   echo "Running nodejs $(node --version)"
 
@@ -29,4 +30,4 @@ RUN git clone --depth 1 https://github.com/cran/jsonlite packages/jsonlite &&\
     cp -Rf /datatool packages/datatool && \
     sed -i.bak 's/PKGS = webr/PKGS = webr jsonlite writexl data.table zip datatool/' packages/Makefile
 
-RUN PATH="/opt/emsdk:/opt/emsdk/upstream/emscripten:$PATH" EMSDK=/opt/emsdk make
+RUN PATH="/opt/emsdk:/opt/emsdk/upstream/emscripten:$PATH" EMSDK=/opt/emsdk EM_NODE_JS=$(which node) make
