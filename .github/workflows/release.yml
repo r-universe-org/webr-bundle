@@ -1,0 +1,14 @@
+name: Release to NPM
+
+on:
+  workflow_dispatch:
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    container: ghcr.io/${{github.repository}}:master
+    steps:
+      - name: make publish
+        run: cd /webr/src && make publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

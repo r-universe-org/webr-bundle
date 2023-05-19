@@ -6,6 +6,9 @@ RUN curl -L https://deb.nodesource.com/setup_18.x -o setup &&\
   apt install nodejs &&\
   echo "Running nodejs $(node --version)"
 
+# Needed to publish to npm (copied from setup-node action)
+ADD npmrc /root/.npmrc
+
 RUN git clone https://github.com/r-wasm/webr
 
 WORKDIR webr
