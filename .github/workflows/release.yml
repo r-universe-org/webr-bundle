@@ -9,6 +9,6 @@ jobs:
     container: ghcr.io/${{github.repository}}:master
     steps:
       - name: make publish
-        run: cd /webr/src && make publish
+        run: cd /opt/webr/src && make publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
