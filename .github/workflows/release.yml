@@ -9,6 +9,13 @@ jobs:
     container: ghcr.io/${{github.repository}}:master
     steps:
       - name: make publish
-        run: cd /opt/webr/src && make publish
+        run: |
+          if [ "$NODE_AUTH_TOKEN" ]; then
+            echo "NODE_AUTH_TOKEN: .....${NODE_AUTH_TOKEN: -3}"
+          else
+            echo "NODE_AUTH_TOKEN is not set"
+            exit 1
+          fi
+          cd /opt/webr/src && make publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
