@@ -11,7 +11,7 @@ jobs:
       - name: make publish
         run: |
           if [ "$NODE_AUTH_TOKEN" ]; then
-            echo "NODE_AUTH_TOKEN: .....${NODE_AUTH_TOKEN: -3}"
+            export NODE_AUTH_TOKEN=`echo $NODE_AUTH_TOKEN | sed 's/ *$//g'`
           else
             echo "NODE_AUTH_TOKEN is not set"
             exit 1
