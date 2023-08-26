@@ -16,10 +16,10 @@ WORKDIR webr
 COPY datatool /datatool
 
 # Update npm metadata
-RUN sed -i.bak 's/@r-wasm/@r-universe/g' src/package.json &&\
-  sed -i.bak "s|\"version\":.*|\"version\": \"$(date +'%Y.%m.%d')\",|" src/package.json &&\
-  curl -sSOL https://github.com/r-universe-org/webr-bundle/raw/master/README.md &&\
-  cat src/package.json
+RUN sed -i.bak 's|"name": "webr"|"name": "@r-universe/webr"|' src/package.json &&\
+    sed -i.bak "s|\"version\":.*|\"version\": \"$(date +'%Y.%m.%d')\",|" src/package.json &&\
+    curl -sSOL https://github.com/r-universe-org/webr-bundle/raw/master/README.md &&\
+    cat src/package.json
 
 RUN ./configure
 
