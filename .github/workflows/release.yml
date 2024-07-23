@@ -10,12 +10,11 @@ jobs:
     steps:
       - name: make publish
         run: |
-          if [ "$NODE_AUTH_TOKEN" ]; then
-            export NODE_AUTH_TOKEN=`echo $NODE_AUTH_TOKEN | sed 's/ *$//g'`
-          else
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
             echo "NODE_AUTH_TOKEN is not set"
             exit 1
           fi
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
           cd /opt/webr/src && make publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}

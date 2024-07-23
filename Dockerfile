@@ -1,17 +1,17 @@
-FROM georgestagg/webr-flang
+FROM ghcr.io/r-wasm/flang-wasm:main
 
-# Install latest nodejs
-RUN curl -L https://deb.nodesource.com/setup_18.x -o setup &&\
-  bash setup && \
-  apt install nodejs &&\
-  echo "Running nodejs $(node --version)"
+ENV PATH="/opt/emsdk:/opt/emsdk/upstream/emscripten:${PATH}"
+ENV EMSDK="/opt/emsdk"
+ENV WEBR_ROOT="/opt/webr"
+ENV EM_NODE_JS="/usr/bin/node"
+ENV EMFC="/opt/flang/host/bin/flang-new"
 
-# Needed to publish to npm (copied from setup-node action)
-ADD npmrc /root/.npmrc
+# Install nodeJS
+RUN apt-get update && apt-get install nodejs npm -y
 
-RUN git clone https://github.com/r-wasm/webr
+RUN git clone https://github.com/r-wasm/webr /opt/webr
 
-WORKDIR webr
+WORKDIR /opt/webr
 
 COPY datatool /datatool
 
@@ -23,8 +23,6 @@ RUN sed -i.bak 's|"name": "webr"|"name": "@r-universe/webr"|' src/package.json &
 
 RUN ./configure
 
-RUN cp -r /opt/flang/wasm .; cp -r /opt/flang/host .;cp /opt/flang/emfc ./host/bin/emfc
-
 # Add packages to the bundle
 RUN git clone --depth 1 https://github.com/cran/jsonlite packages/jsonlite &&\
     git clone --depth 1 https://github.com/ropensci/writexl packages/writexl &&\
@@ -33,4 +31,4 @@ RUN git clone --depth 1 https://github.com/cran/jsonlite packages/jsonlite &&\
     cp -Rf /datatool packages/datatool && \
     sed -i.bak 's/PKGS = webr/PKGS = webr jsonlite writexl data.table zip datatool/' packages/Makefile
 
-RUN PATH="/opt/emsdk:/opt/emsdk/upstream/emscripten:$PATH" EMSDK=/opt/emsdk EM_NODE_JS=$(which node) make
+RUN make

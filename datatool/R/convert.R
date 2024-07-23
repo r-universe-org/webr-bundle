@@ -39,8 +39,8 @@ save_data <- function(name, env, format, output){
          csv = data.table::fwrite(df, output),
          csv.gz = data.table::fwrite(df, output, compress='gzip'),
          xlsx = writexl::write_xlsx(df, output),
-         json = jsonlite::write_json(df, output),
-         ndjson = jsonlite::stream_out(df, file(output), verbose = FALSE),
+         json = jsonlite::write_json(df, output, force = TRUE),
+         ndjson = jsonlite::stream_out(df, file(output), force = TRUE, verbose = FALSE),
          rds = saveRDS(df, output),
          rda = save(list=name, envir = env, file = output),
          stop("Wrong format: ", format)
