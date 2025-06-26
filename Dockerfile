@@ -21,6 +21,9 @@ RUN sed -i.bak 's|"name": "webr"|"name": "@r-universe/webr"|' src/package.json &
     curl -sSOL https://github.com/r-universe-org/webr-bundle/raw/master/README.md &&\
     cat src/package.json
 
+# Workaround for "wasm-ld: error: initial memory too small"
+RUN sed -i 's|STACK_SIZE=1MB|STACK_SIZE=1MB -s INITIAL_MEMORY=32MB -s MAXIMUM_MEMORY=4GB|' R/Makefile
+
 RUN ./configure
 
 # Add packages to the bundle
