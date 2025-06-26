@@ -9,7 +9,7 @@ ENV EMFC="/opt/flang/host/bin/flang"
 # Install nodeJS
 RUN apt-get update && apt-get install nodejs npm -y
 
-RUN git clone --branch v0.5.2 --single-branch https://github.com/r-wasm/webr /opt/webr
+RUN git clone https://github.com/r-wasm/webr /opt/webr
 
 WORKDIR /opt/webr
 
@@ -20,9 +20,6 @@ RUN sed -i.bak 's|"name": "webr"|"name": "@r-universe/webr"|' src/package.json &
     sed -i.bak "s|\"version\":.*|\"version\": \"$(date +'%Y.%m.%d')\",|" src/package.json &&\
     curl -sSOL https://github.com/r-universe-org/webr-bundle/raw/master/README.md &&\
     cat src/package.json
-
-# Workaround for "wasm-ld: error: initial memory too small"
-RUN sed -i 's|STACK_SIZE=1MB|STACK_SIZE=1MB -s INITIAL_MEMORY=32MB -s MAXIMUM_MEMORY=4GB|' R/Makefile
 
 RUN ./configure
 
