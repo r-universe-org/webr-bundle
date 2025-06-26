@@ -4,12 +4,12 @@ ENV PATH="/opt/emsdk:/opt/emsdk/upstream/emscripten:${PATH}"
 ENV EMSDK="/opt/emsdk"
 ENV WEBR_ROOT="/opt/webr"
 ENV EM_NODE_JS="/usr/bin/node"
-ENV EMFC="/opt/flang/host/bin/flang-new"
+ENV EMFC="/opt/flang/host/bin/flang"
 
 # Install nodeJS
 RUN apt-get update && apt-get install nodejs npm -y
 
-RUN git clone https://github.com/r-wasm/webr /opt/webr
+RUN git clone --branch v0.5.2 --single-branch https://github.com/r-wasm/webr /opt/webr
 
 WORKDIR /opt/webr
 
