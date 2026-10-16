@@ -10,7 +10,6 @@ This bundle contains webr with the following packages preinstalled:
  - jsonlite (json export)
  - writexl (xlsx export)
  - data.table (csv export)
- - zip
 
 ## Dependencies
 

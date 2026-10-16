@@ -27,9 +27,8 @@ RUN ./configure
 RUN git clone --depth 1 https://github.com/cran/jsonlite packages/jsonlite &&\
     git clone --depth 1 https://github.com/ropensci/writexl packages/writexl &&\
     git clone --depth 1 https://github.com/cran/data.table packages/data.table &&\
-    git clone --depth 1 https://github.com/cran/zip packages/zip && \
     cp -Rf /datatool packages/datatool && \
-    sed -i.bak 's/PKGS = webr/PKGS = webr jsonlite writexl data.table zip datatool/' packages/Makefile
+    sed -i.bak 's/PKGS = webr/PKGS = webr jsonlite writexl data.table datatool/' packages/Makefile
 
 RUN make
 
