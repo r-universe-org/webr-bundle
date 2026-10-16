@@ -11,3 +11,10 @@ This bundle contains webr with the following packages preinstalled:
  - writexl (xlsx export)
  - data.table (csv export)
  - zip
+
+## Dependencies
+
+The upstream webr package lists its build dependencies (react, codemirror, etc) as
+regular dependencies, but esbuild bundles everything that is needed into `dist`.
+We remove them from package.json before publishing, so the package installs
+without any dependencies. The Dockerfile has a smoke test for this.

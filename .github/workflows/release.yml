@@ -15,6 +15,6 @@ jobs:
             exit 1
           fi
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-          cd /opt/webr/src && make publish
+          cd /opt/webr/src && npm publish --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
